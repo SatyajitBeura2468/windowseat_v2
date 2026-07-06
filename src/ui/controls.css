@@ -1,0 +1,280 @@
+/* ───────────────────────────────────────────────────────────
+ *  controls.css — Glassmorphism control panel styling
+ * ─────────────────────────────────────────────────────────── */
+
+.ws-controls {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ws-controls--hidden {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+
+.ws-controls-inner {
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px 22px 18px;
+  min-width: 280px;
+  max-width: 320px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+}
+
+/* Header */
+.ws-controls-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ws-logo {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #e8c47c, #f0a050, #e87040);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Control groups */
+.ws-control-group {
+  margin-bottom: 14px;
+}
+
+.ws-control-group--inline {
+  flex: 1;
+}
+
+.ws-control-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.ws-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 6px;
+}
+
+/* Coach buttons */
+.ws-coach-row,
+.ws-weather-row {
+  display: flex;
+  gap: 6px;
+}
+
+.ws-coach-btn,
+.ws-weather-btn {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 18px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.ws-coach-btn:hover,
+.ws-weather-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.ws-coach-btn.active,
+.ws-weather-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 12px rgba(232, 160, 80, 0.2), inset 0 0 0 1px rgba(232, 160, 80, 0.3);
+}
+
+.ws-coach-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Sliders */
+.ws-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.ws-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8c47c, #e8a050);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease;
+}
+
+.ws-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.ws-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8c47c, #e8a050);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Seed input */
+.ws-seed-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ws-seed-input {
+  width: 80px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ws-seed-input:focus {
+  border-color: rgba(232, 160, 80, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Buttons */
+.ws-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ws-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.ws-btn-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.ws-btn-sound {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.ws-btn-sound:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Focus button */
+.ws-focus-btn {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.ws-focus-btn:hover {
+  opacity: 1;
+}
+
+/* Audio start overlay */
+.ws-audio-start {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 15, 0.85);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.ws-audio-start--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ws-audio-start-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  animation: ws-pulse 2.5s ease-in-out infinite;
+}
+
+.ws-audio-start-hint {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+@keyframes ws-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ws-controls {
+    bottom: 16px;
+    right: 12px;
+    left: 12px;
+  }
+  .ws-controls-inner {
+    max-width: none;
+    min-width: unset;
+    padding: 16px 18px 14px;
+  }
+}
