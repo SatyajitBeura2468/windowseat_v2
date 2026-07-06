@@ -130,15 +130,17 @@ function startLoop() {
 function tick(timestamp) {
   const rawDt = timestamp - lastTime;
   lastTime = timestamp;
-  // Cap dt to avoid spiral after tab switch
-  const dt = Math.min(rawDt, 50);
+  // Cap dt to avoid spiral after tab switch (ms)
+  const dtMs = Math.min(rawDt, 50);
+  // Engine systems use seconds
+  const dt = dtMs * 0.001;
 
   // ── Update state ──
-  state.dt = dt;
-  state.elapsed = timestamp * 0.001;    // seconds
-  state.scroll += state.speed * dt;
+  state.dt = dt;                         // seconds
+  state.elapsed = timestamp * 0.001;     // seconds
+  state.scroll += state.speed * dtMs;    // speed is px/ms
 
-  // Update engine systems
+  // Update engine systems (all expect dt in seconds)
   world.update(dt, state);
   timeSys.update(dt, state);
   weatherSys.update(dt, state);
