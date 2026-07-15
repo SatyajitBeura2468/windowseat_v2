@@ -6,7 +6,7 @@
 
 WindowSeat V2 is a full-screen, cinematic train-window simulator built around original photorealistic scene plates, depth-separated motion, a tactile coach interior, gradual weather and light treatment, and user-initiated spatial ambience. The simulator is the homepage: there is no marketing page between the visitor and the window.
 
-Production URL: deployment pending verification.
+Production URL: [https://windowseat-v2.vercel.app](https://windowseat-v2.vercel.app)
 
 ## Experience
 
