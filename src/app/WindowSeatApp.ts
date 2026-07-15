@@ -10,6 +10,7 @@ import { WeatherRenderer } from "../effects/WeatherRenderer";
 import { RouteScheduler } from "../journey/RouteScheduler";
 import { MediaEngine } from "../media/MediaEngine";
 import type {
+  CoachId,
   JourneyState,
   QualityMode,
   RouteId,
@@ -17,6 +18,8 @@ import type {
   TimePreset,
   WeatherPreset,
 } from "../types";
+
+type QuickControl = "route" | "coach" | "weather" | "time" | "speed";
 import { downloadCapture } from "../ui/capture";
 import { icon } from "../ui/icons";
 import { copyJourney, shareJourney } from "../ui/share";
@@ -77,7 +80,13 @@ export class WindowSeatApp {
         </div>
 
         <div class="coach-shell" aria-label="Cinematic train-window view">
-          <div class="coach-top" aria-hidden="true"><span class="reading-light"></span><span class="coach-plate">WS · 02</span></div>
+          <div class="coach-top">
+            <span class="reading-light" aria-hidden="true"></span>
+            <span class="coach-plate" aria-hidden="true">WS · 02</span>
+            <button class="menu-trigger" type="button" data-action="open-settings" aria-label="Open window controls" aria-haspopup="dialog">
+              <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+            </button>
+          </div>
           <div class="coach-side coach-side--left" aria-hidden="true"><span class="panel-line"></span><span class="seat-edge"></span></div>
           <div class="coach-side coach-side--right" aria-hidden="true"><span class="panel-line"></span><span class="bottle-slot"></span></div>
 
@@ -119,19 +128,23 @@ export class WindowSeatApp {
               <span><strong data-status-route></strong><small data-status-detail></small></span>
             </div>
             <nav class="control-shelf" data-controls aria-label="Journey controls">
-              ${this.controlButton("route", "Route", "open-journeys")}
-              ${this.controlButton("coach", "Coach", "open-settings", "coach")}
-              ${this.controlButton("weather", "Weather", "open-settings", "weather")}
-              ${this.controlButton("time", "Time", "open-settings", "time")}
-              ${this.controlButton("speed", "Speed", "cycle-speed")}
+              ${this.controlButton("route", "Route", "open-quick")}
+              ${this.controlButton("coach", "Coach", "open-quick")}
+              ${this.controlButton("weather", "Weather", "open-quick")}
+              ${this.controlButton("time", "Time", "open-quick")}
+              ${this.controlButton("speed", "Speed", "open-quick")}
               ${this.controlButton("sound", "Sound", "toggle-sound")}
               ${this.controlButton("focus", "Focus", "toggle-focus")}
               ${this.controlButton("capture", "Capture", "capture")}
               ${this.controlButton("share", "Share", "share")}
-              <button class="control control--settings" type="button" data-action="open-settings" aria-label="Open detailed settings">${icon("settings")}</button>
             </nav>
           </div>
         </div>
+
+        <section class="quick-popover" data-quick-popover role="menu" aria-labelledby="quick-title" hidden>
+          <header><div><span>Quick control</span><h2 id="quick-title" data-quick-title></h2></div><button type="button" data-action="close-quick" aria-label="Close quick controls">${icon("close")}</button></header>
+          <div class="quick-options" data-quick-options></div>
+        </section>
 
         <div class="overlay" data-journey-overlay hidden>
           <button class="overlay__backdrop" type="button" data-action="close-overlay" aria-label="Close journey picker"></button>
@@ -182,7 +195,11 @@ export class WindowSeatApp {
     action: string,
     valueKey = iconName,
   ): string {
-    return `<button class="control" type="button" data-action="${action}" data-setting-target="${valueKey}" aria-label="${label}">${icon(iconName)}<span><small>${label}</small><strong data-control-value="${valueKey}">—</strong></span></button>`;
+    const popup =
+      action === "open-quick"
+        ? ' aria-haspopup="menu" aria-expanded="false"'
+        : "";
+    return `<button class="control" type="button" data-action="${action}" data-setting-target="${valueKey}" aria-label="${label}"${popup}>${icon(iconName)}<span><small>${label}</small><strong data-control-value="${valueKey}">—</strong></span></button>`;
   }
 
   private routeCard(id: RouteId): string {
@@ -218,17 +235,32 @@ export class WindowSeatApp {
     const button = (event.target as HTMLElement).closest<HTMLElement>(
       "[data-action]",
     );
-    if (!button) return;
+    if (!button) {
+      if (!(event.target as HTMLElement).closest("[data-quick-popover]"))
+        this.closeQuickControl();
+      return;
+    }
     const action = button.dataset.action;
+    if (action !== "open-quick" && action !== "select-quick")
+      this.closeQuickControl();
     if (action === "begin") void this.beginJourney();
     if (action === "open-journeys") this.openOverlay("journey");
-    if (action === "open-settings")
-      this.openOverlay("settings", button.dataset.settingTarget);
+    if (action === "open-settings") this.openOverlay("settings");
+    if (action === "open-quick")
+      this.openQuickControl(
+        button.dataset.settingTarget as QuickControl,
+        button,
+      );
+    if (action === "close-quick") this.closeQuickControl();
+    if (action === "select-quick")
+      void this.selectQuickControl(
+        button.dataset.quickType as QuickControl,
+        button.dataset.quickValue ?? "",
+      );
     if (action === "close-overlay") this.closeOverlays();
     if (action === "select-route")
       void this.selectRoute(button.dataset.route as RouteId, true);
     if (action === "random") void this.randomJourney();
-    if (action === "cycle-speed") this.cycleSpeed();
     if (action === "toggle-sound") void this.toggleSound();
     if (action === "toggle-focus") this.toggleFocus();
     if (action === "capture") void this.capture();
@@ -273,7 +305,9 @@ export class WindowSeatApp {
     )
       return;
     if (event.key === "Escape") {
-      if (this.state.focus) this.toggleFocus();
+      if (!this.required<HTMLElement>("[data-quick-popover]").hidden)
+        this.closeQuickControl();
+      else if (this.state.focus) this.toggleFocus();
       else this.closeOverlays();
     }
     if (event.key.toLowerCase() === "f") this.toggleFocus();
@@ -330,6 +364,7 @@ export class WindowSeatApp {
   }
 
   private openOverlay(which: "journey" | "settings", field?: string): void {
+    this.closeQuickControl();
     this.closeOverlays();
     const overlay = this.required<HTMLElement>(
       which === "journey"
@@ -360,6 +395,88 @@ export class WindowSeatApp {
       });
   }
 
+  private openQuickControl(type: QuickControl, anchor: HTMLElement): void {
+    const popover = this.required<HTMLElement>("[data-quick-popover]");
+    const alreadyOpen = !popover.hidden && popover.dataset.quickType === type;
+    this.closeQuickControl();
+    if (alreadyOpen) return;
+
+    const current = this.quickValue(type);
+    this.setText("[data-quick-title]", this.quickTitle(type));
+    this.required<HTMLElement>("[data-quick-options]").innerHTML =
+      this.quickOptions(type)
+        .map(
+          ([value, label]) =>
+            `<button type="button" role="menuitemradio" data-action="select-quick" data-quick-type="${type}" data-quick-value="${value}" aria-checked="${value === current}" class="quick-option${value === current ? " is-current" : ""}"><span>${label}</span>${value === current ? "<small>Current</small>" : ""}</button>`,
+        )
+        .join("");
+    const rect = anchor.getBoundingClientRect();
+    popover.style.setProperty("--quick-x", `${rect.left + rect.width / 2}px`);
+    popover.dataset.quickType = type;
+    popover.hidden = false;
+    requestAnimationFrame(() => popover.classList.add("is-open"));
+    anchor.setAttribute("aria-expanded", "true");
+  }
+
+  private closeQuickControl(): void {
+    const popover = this.mount.querySelector<HTMLElement>(
+      "[data-quick-popover]",
+    );
+    if (!popover || popover.hidden) return;
+    popover.classList.remove("is-open");
+    this.mount
+      .querySelectorAll<HTMLElement>('[data-action="open-quick"]')
+      .forEach((button) => button.setAttribute("aria-expanded", "false"));
+    window.setTimeout(() => {
+      if (!popover.classList.contains("is-open")) popover.hidden = true;
+    }, 180);
+  }
+
+  private quickOptions(type: QuickControl): [string, string][] {
+    if (type === "route")
+      return ROUTES.map((route) => [route.id, route.shortName]);
+    if (type === "coach") return COACHES.map((coach) => [coach.id, coach.name]);
+    if (type === "weather")
+      return WEATHER_OPTIONS.filter((weather) =>
+        getRoute(this.state.route).weather.includes(weather.id),
+      ).map((weather) => [weather.id, weather.label]);
+    if (type === "time")
+      return TIME_OPTIONS.map((time) => [time.id, time.label]);
+    return [
+      ["0", "Paused"],
+      ["0.65", "Slow"],
+      ["1", "Cruise"],
+      ["1.35", "Express"],
+    ];
+  }
+
+  private quickValue(type: QuickControl): string {
+    return String(this.state[type]);
+  }
+
+  private quickTitle(type: QuickControl): string {
+    return type === "time"
+      ? "Time of day"
+      : `${type.charAt(0).toUpperCase()}${type.slice(1)}`;
+  }
+
+  private async selectQuickControl(
+    type: QuickControl,
+    value: string,
+  ): Promise<void> {
+    this.closeQuickControl();
+    if (type === "route") {
+      await this.selectRoute(value as RouteId);
+      return;
+    }
+    if (type === "coach") this.state.coach = value as CoachId;
+    if (type === "weather") this.state.weather = value as WeatherPreset;
+    if (type === "time") this.state.time = value as TimePreset;
+    if (type === "speed") this.state.speed = Number(value) as SpeedPreset;
+    this.commitState();
+    this.announce(`${this.quickTitle(type)} changed.`);
+  }
+
   private async selectRoute(route: RouteId, begin = false): Promise<void> {
     this.state = stateForRoute(this.state, route);
     this.scheduler = new RouteScheduler(
@@ -379,13 +496,6 @@ export class WindowSeatApp {
     const current = ROUTES.findIndex((route) => route.id === this.state.route);
     const jump = 1 + Math.floor(Math.random() * (ROUTES.length - 1));
     await this.selectRoute(ROUTES[(current + jump) % ROUTES.length]!.id, true);
-  }
-
-  private cycleSpeed(): void {
-    const speeds: SpeedPreset[] = [0, 0.65, 1, 1.35];
-    this.state.speed =
-      speeds[(speeds.indexOf(this.state.speed) + 1) % speeds.length]!;
-    this.commitState();
   }
 
   private adjustSpeed(direction: -1 | 1): void {

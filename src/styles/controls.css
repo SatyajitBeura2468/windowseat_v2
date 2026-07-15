@@ -37,7 +37,7 @@
 
 .control-shelf {
   display: grid;
-  grid-template-columns: repeat(9, minmax(4.4rem, 1fr)) 2.7rem;
+  grid-template-columns: repeat(9, minmax(4.4rem, 1fr));
   min-width: 0;
   height: clamp(4.5rem, 9vh, 5.7rem);
   border: 1px solid rgba(176, 190, 199, 0.2);
@@ -94,7 +94,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.control--settings {
+.control:last-child {
   border-right: 0;
 }
 .has-started:not(.controls-visible) .control-shelf,
@@ -106,6 +106,117 @@
 .focus-mode .journey-status {
   opacity: 0 !important;
   pointer-events: none;
+}
+
+.quick-popover {
+  position: fixed;
+  z-index: 45;
+  left: clamp(9.5rem, var(--quick-x), calc(100vw - 9.5rem));
+  bottom: calc(var(--sill-height) + 0.75rem);
+  width: min(18rem, calc(100vw - 1.5rem));
+  padding: 0.85rem;
+  border: 1px solid rgba(241, 201, 139, 0.34);
+  background: linear-gradient(
+    155deg,
+    rgba(25, 30, 34, 0.98),
+    rgba(9, 12, 15, 0.98)
+  );
+  box-shadow:
+    0 1rem 3rem rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  transform: translate(-50%, 0.55rem) scale(0.97);
+  transform-origin: 50% 100%;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+.quick-popover.is-open {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+.quick-popover::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.38rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 1px solid rgba(241, 201, 139, 0.34);
+  border-bottom: 1px solid rgba(241, 201, 139, 0.34);
+  background: #0b0e11;
+  transform: translateX(-50%) rotate(45deg);
+}
+.quick-popover header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+.quick-popover header span {
+  color: var(--amber);
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.quick-popover h2 {
+  margin: 0.18rem 0 0;
+  font:
+    400 1.25rem/1.1 Georgia,
+    serif;
+}
+.quick-popover header button {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.quick-popover header button:hover {
+  color: var(--white);
+}
+.quick-popover header svg {
+  width: 0.9rem;
+}
+.quick-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+.quick-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  min-height: 2.65rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(238, 242, 243, 0.72);
+  font-size: 0.64rem;
+  text-align: left;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+.quick-option:hover {
+  border-color: rgba(241, 201, 139, 0.4);
+  color: var(--white);
+}
+.quick-option.is-current {
+  border-color: rgba(241, 201, 139, 0.52);
+  background: rgba(241, 201, 139, 0.1);
+  color: var(--warm);
+}
+.quick-option small {
+  color: rgba(241, 201, 139, 0.58);
+  font-size: 0.43rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .overlay {
