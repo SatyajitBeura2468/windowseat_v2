@@ -1,0 +1,228 @@
+@media (max-width: 1000px) {
+  .experience {
+    --side-width: clamp(2rem, 5vw, 3.5rem);
+    --sill-height: clamp(7.5rem, 16vh, 9rem);
+  }
+  .coach-sill {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    padding-inline: 1rem;
+  }
+  .control-shelf {
+    grid-template-columns: repeat(9, minmax(3rem, 1fr)) 2.6rem;
+  }
+  .control {
+    gap: 0;
+  }
+  .control > span small {
+    display: none;
+  }
+  .control > span {
+    text-align: center;
+  }
+  .control svg {
+    width: 1.15rem;
+  }
+  .journey-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .experience {
+    min-height: 26rem;
+    --side-width: 0.75rem;
+    --top-height: 2rem;
+    --sill-height: 8.2rem;
+    --window-radius: 1.1rem;
+  }
+  .coach-shell {
+    grid-template-columns: var(--side-width) minmax(0, 1fr) var(--side-width);
+  }
+  .coach-top .reading-light,
+  .coach-top .coach-plate,
+  .coach-side > * {
+    display: none;
+  }
+  .window-surround {
+    padding: 0.35rem;
+  }
+  .window-seal {
+    padding: 0.28rem;
+  }
+  .coach-sill {
+    display: block;
+    padding: 0.5rem 0.55rem 0.85rem;
+  }
+  .journey-status {
+    height: 2rem;
+    padding: 0 0.35rem;
+  }
+  .journey-status strong {
+    font-size: 0.85rem;
+  }
+  .control-shelf {
+    display: flex;
+    width: 100%;
+    height: 4.6rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-inline: 0;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .control-shelf::-webkit-scrollbar {
+    display: none;
+  }
+  .control {
+    flex: 0 0 4.15rem;
+    flex-direction: column;
+    gap: 0.28rem;
+    scroll-snap-align: start;
+  }
+  .control--settings {
+    flex-basis: 3rem;
+  }
+  .control > span strong {
+    max-width: 3.7rem;
+    font-size: 0.5rem;
+  }
+  .onboarding {
+    padding: 1.25rem;
+    justify-content: flex-end;
+    padding-bottom: clamp(2rem, 8vh, 4rem);
+  }
+  .onboarding h1 {
+    max-width: 20rem;
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+  .onboarding__support {
+    font-size: 0.67rem;
+  }
+  .onboarding__mark {
+    margin-bottom: 0.8rem;
+  }
+  .onboarding__actions {
+    margin-top: 1.4rem;
+    width: min(19rem, 100%);
+  }
+  .primary-action,
+  .secondary-action {
+    min-height: 3rem;
+    font-size: 0.6rem;
+  }
+  .sound-notice {
+    font-size: 0.58rem;
+  }
+  .route-beacon {
+    left: 1rem;
+    top: 1rem;
+  }
+  .rare-event {
+    right: 0.8rem;
+    top: 0.8rem;
+    max-width: 12rem;
+  }
+  .journey-picker {
+    inset: auto 0 0;
+    translate: 0 100%;
+    width: 100%;
+    max-height: 88dvh;
+    border-inline: 0;
+    padding: 1rem;
+  }
+  .is-open .journey-picker {
+    translate: 0 0;
+  }
+  .journey-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .journey-card {
+    min-height: 10.2rem;
+  }
+  .journey-card__copy span {
+    display: none;
+  }
+  .panel-header h2 {
+    font-size: 1.65rem;
+  }
+  .settings-drawer {
+    inset: auto 0 0;
+    width: 100%;
+    height: min(88dvh, 46rem);
+    transform: translateY(100%);
+    border-inline: 0;
+  }
+  .is-open .settings-drawer {
+    transform: none;
+  }
+  .field {
+    grid-template-columns: 6.5rem 1fr;
+  }
+  .toast {
+    bottom: 9.3rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .experience {
+    --top-height: 1.4rem;
+    --sill-height: 5rem;
+    --side-width: 1rem;
+  }
+  .coach-sill {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    padding: 0.28rem 0.7rem 0.4rem;
+  }
+  .journey-status {
+    height: auto;
+  }
+  .control-shelf {
+    height: 3.5rem;
+  }
+  .control {
+    flex: 1 1 0;
+    min-width: 2.8rem;
+  }
+  .control > span {
+    display: none;
+  }
+  .onboarding {
+    justify-content: center;
+    padding: 0.8rem;
+  }
+  .onboarding h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  .onboarding__support {
+    margin-top: 0.5rem;
+  }
+  .onboarding__actions {
+    grid-template-columns: 1fr 1fr;
+    width: min(34rem, 80%);
+    margin-top: 0.8rem;
+  }
+  .sound-notice {
+    margin-top: 0.55rem;
+  }
+  .journey-picker {
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    width: min(62rem, 94%);
+    height: 90dvh;
+    translate: -50% 60%;
+  }
+  .is-open .journey-picker {
+    translate: -50% -50%;
+  }
+  .journey-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .journey-card {
+    min-height: 9rem;
+  }
+}

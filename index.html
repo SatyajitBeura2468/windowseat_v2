@@ -1,42 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>WindowSeat — A Cinematic Train Journey</title>
-  <meta name="description" content="An immersive, endlessly-changing cinematic train-window journey simulator. Watch the world scroll past from a beautiful Indian railway coach." />
-  <meta name="theme-color" content="#050510" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚃</text></svg>" />
-  <link rel="stylesheet" href="/src/styles/index.css" />
-  <link rel="stylesheet" href="/src/ui/controls.css" />
-</head>
-<body>
-  <!-- Loading Screen -->
-  <div class="ws-loading" id="ws-loading">
-    <div class="ws-loading-logo">WindowSeat</div>
-    <div class="ws-loading-bar">
-      <div class="ws-loading-bar-fill" id="ws-loading-bar"></div>
-    </div>
-  </div>
-
-  <!-- Audio Start Overlay -->
-  <div class="ws-audio-start" id="ws-audio-start">
-    <div class="ws-audio-start-text">Click anywhere to begin your journey</div>
-    <div class="ws-audio-start-hint">sound will be enabled</div>
-  </div>
-
-  <!-- Journey Info (top-left) -->
-  <div class="ws-info" id="ws-info">
-    <div class="ws-info-biome" id="ws-info-biome">Plains</div>
-    <div class="ws-info-detail" id="ws-info-detail">Seed: 42 · Clear · Dawn</div>
-  </div>
-
-  <!-- Canvas Container -->
-  <div id="ws-canvas-container"></div>
-
-  <!-- Controls mount point -->
-  <div id="ws-controls-mount"></div>
-
-  <script type="module" src="/src/main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>WindowSeat V2 — The journey begins outside your window.</title>
+    <meta
+      name="description"
+      content="Take a quiet, cinematic train-window journey through six Indian landscape-inspired routes. No destination. No schedule. Just the view."
+    />
+    <meta name="theme-color" content="#080a0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WindowSeat V2" />
+    <meta
+      property="og:description"
+      content="The journey begins outside your window."
+    />
+    <meta property="og:image" content="/media/social/windowseat-social.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+  </head>
+  <body>
+    <noscript
+      >WindowSeat V2 needs JavaScript to compose its cinematic
+      journey.</noscript
+    >
+    <main id="app"></main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>

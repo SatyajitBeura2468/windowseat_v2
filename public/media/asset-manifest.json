@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-15",
+  "assets": [
+    {
+      "id": "generated-konkan-monsoon",
+      "localFiles": ["routes/konkan-monsoon-a.avif", "routes/konkan-monsoon-b.avif", "posters/konkan-monsoon.webp"],
+      "title": "Konkan Monsoon inspired landscape plate",
+      "creator": "WindowSeat V2 project using OpenAI image generation",
+      "sourceUrl": null,
+      "licence": "Project-owned generated asset",
+      "licenceUrl": "https://openai.com/policies/terms-of-use/",
+      "dateCreated": "2026-07-15",
+      "modifications": "Resized, optimised, cropped and lightly colour graded into AVIF and WebP derivatives.",
+      "attributionRequired": false,
+      "redistributionPermitted": true,
+      "generated": true
+    },
+    {
+      "id": "generated-odisha-green",
+      "localFiles": ["routes/odisha-green-a.avif", "routes/odisha-green-b.avif", "posters/odisha-green.webp"],
+      "title": "Odisha Green Corridor inspired landscape plate",
+      "creator": "WindowSeat V2 project using OpenAI image generation",
+      "sourceUrl": null,
+      "licence": "Project-owned generated asset",
+      "licenceUrl": "https://openai.com/policies/terms-of-use/",
+      "dateCreated": "2026-07-15",
+      "modifications": "Resized, optimised, cropped and lightly colour graded into AVIF and WebP derivatives.",
+      "attributionRequired": false,
+      "redistributionPermitted": true,
+      "generated": true
+    },
+    {
+      "id": "generated-himalayan-dawn",
+      "localFiles": ["routes/himalayan-dawn-a.avif", "routes/himalayan-dawn-b.avif", "posters/himalayan-dawn.webp"],
+      "title": "Himalayan Dawn inspired landscape plate",
+      "creator": "WindowSeat V2 project using OpenAI image generation",
+      "sourceUrl": null,
+      "licence": "Project-owned generated asset",
+      "licenceUrl": "https://openai.com/policies/terms-of-use/",
+      "dateCreated": "2026-07-15",
+      "modifications": "Resized, optimised, cropped and lightly colour graded into AVIF and WebP derivatives.",
+      "attributionRequired": false,
+      "redistributionPermitted": true,
+      "generated": true
+    },
+    {
+      "id": "generated-rajasthan-twilight",
+      "localFiles": ["routes/rajasthan-twilight-a.avif", "routes/rajasthan-twilight-b.avif", "posters/rajasthan-twilight.webp"],
+      "title": "Rajasthan Twilight inspired landscape plate",
+      "creator": "WindowSeat V2 project using OpenAI image generation",
+      "sourceUrl": null,
+      "licence": "Project-owned generated asset",
+      "licenceUrl": "https://openai.com/policies/terms-of-use/",
+      "dateCreated": "2026-07-15",
+      "modifications": "Resized, optimised, cropped and lightly colour graded into AVIF and WebP derivatives.",
+      "attributionRequired": false,
+      "redistributionPermitted": true,
+      "generated": true
+    },
+    {
+      "id": "generated-bengal-countryside",
+      "localFiles": ["routes/bengal-countryside-a.avif", "routes/bengal-countryside-b.avif", "posters/bengal-countryside.webp"],
+      "title": "Bengal Countryside inspired landscape plate",
+      "creator": "WindowSeat V2 project using OpenAI image generation",
+      "sourceUrl": null,
+      "licence": "Project-owned generated asset",
+      "licenceUrl": "https://openai.com/policies/terms-of-use/",
+      "dateCreated": "2026-07-15",
+      "modifications": "Resized, optimised, cropped and lightly colour graded into AVIF and WebP derivatives.",
+      "attributionRequired": false,
+      "redistributionPermitted": true,
+      "generated": true
+    },
+    {
+      "id": "generated-southern-coast",
+      "localFiles": ["routes/southern-coast-a.avif", "routes/southern-coast-b.avif", "posters/southern-coast.webp"],
+      "title": "Southern Coast inspired landscape plate",
+      "creator": "WindowSeat V2 project using OpenAI image generation",
+      "sourceUrl": null,
+      "licence": "Project-owned generated asset",
+      "licenceUrl": "https://openai.com/policies/terms-of-use/",
+      "dateCreated": "2026-07-15",
+      "modifications": "Resized, optimised, cropped and lightly colour graded into AVIF and WebP derivatives.",
+      "attributionRequired": false,
+      "redistributionPermitted": true,
+      "generated": true
+    }
+  ]
+}

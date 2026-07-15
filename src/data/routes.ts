@@ -1,0 +1,286 @@
+import type {
+  DepthLayer,
+  RouteDefinition,
+  RouteId,
+  SceneAsset,
+  TimePreset,
+  WeatherPreset,
+} from "../types";
+
+const layers: DepthLayer[] = [
+  { id: "sky", speed: 0.012, scale: 1.02, verticalBand: [0, 42] },
+  {
+    id: "distant",
+    speed: 0.035,
+    scale: 1.045,
+    verticalBand: [24, 68],
+    blur: 0.2,
+  },
+  { id: "midground", speed: 0.085, scale: 1.08, verticalBand: [43, 86] },
+  {
+    id: "foreground",
+    speed: 0.19,
+    scale: 1.14,
+    verticalBand: [70, 100],
+    blur: 1.2,
+  },
+];
+
+const scene = (
+  route: RouteId,
+  suffix: "a" | "b",
+  biome: string,
+  time: TimePreset,
+  weather: WeatherPreset[],
+  palette: string[],
+): SceneAsset => ({
+  id: `${route}-${suffix}`,
+  route,
+  biome,
+  type: "layered-image",
+  sources: [
+    {
+      src: `/media/routes/${route}-${suffix}.avif`,
+      type: "image/avif",
+      width: 1600,
+      height: 900,
+    },
+  ],
+  poster: `/media/posters/${route}.webp`,
+  duration: 32,
+  loopStrategy: "crossfade",
+  depthLayers: layers,
+  dominantPalette: palette,
+  naturalTime: time,
+  supportedWeather: weather,
+  attributionId: `generated-${route}`,
+});
+
+export const ROUTES: RouteDefinition[] = [
+  {
+    id: "konkan-monsoon",
+    name: "Konkan Monsoon",
+    shortName: "Konkan",
+    regionLabel: "Western Ghats inspired",
+    description:
+      "Rain-darkened red earth, dense slopes, cloud-softened ridges and a distant waterfall.",
+    seedPrefix: "KONKAN",
+    nativeTime: "afternoon",
+    defaultWeather: "monsoon",
+    weather: ["overcast", "light-rain", "monsoon", "fog", "storm"],
+    ambience: "forest",
+    rareEvents: [
+      "Tunnel ahead",
+      "Waterfall after rain",
+      "Distant lightning",
+      "Bridge crossing",
+    ],
+    scenes: [
+      scene(
+        "konkan-monsoon",
+        "a",
+        "rainforest cutting",
+        "afternoon",
+        ["overcast", "light-rain", "monsoon", "fog", "storm"],
+        ["#47634e", "#7e4b34", "#b7c2c9"],
+      ),
+      scene(
+        "konkan-monsoon",
+        "b",
+        "cloud forest",
+        "dusk",
+        ["overcast", "light-rain", "monsoon", "fog"],
+        ["#2f4735", "#6b3f2f", "#8ea0aa"],
+      ),
+    ],
+  },
+  {
+    id: "odisha-green",
+    name: "Odisha Green Corridor",
+    shortName: "Odisha",
+    regionLabel: "Eastern India inspired",
+    description:
+      "Open fields, laterite soil, streams, forest margins and quiet village edges.",
+    seedPrefix: "ODISHA",
+    nativeTime: "morning",
+    defaultWeather: "overcast",
+    weather: ["clear", "overcast", "light-rain", "monsoon", "fog"],
+    ambience: "fields",
+    rareEvents: [
+      "Small station",
+      "River crossing",
+      "Bird flock",
+      "Morning mist",
+    ],
+    scenes: [
+      scene(
+        "odisha-green",
+        "a",
+        "green corridor",
+        "morning",
+        ["clear", "overcast", "light-rain", "monsoon", "fog"],
+        ["#5c7d42", "#99603e", "#cad5d8"],
+      ),
+      scene(
+        "odisha-green",
+        "b",
+        "field and forest",
+        "afternoon",
+        ["clear", "overcast", "light-rain"],
+        ["#4f7539", "#73543a", "#b7c6ca"],
+      ),
+    ],
+  },
+  {
+    id: "himalayan-dawn",
+    name: "Himalayan Dawn",
+    shortName: "Himalaya",
+    regionLabel: "Himalayan foothills inspired",
+    description:
+      "River valleys, pine-covered slopes and distant snow peaks in restrained first light.",
+    seedPrefix: "HIMALAYA",
+    nativeTime: "dawn",
+    defaultWeather: "clear",
+    weather: ["clear", "overcast", "fog", "snow"],
+    ambience: "mountain",
+    rareEvents: [
+      "Morning mist",
+      "River crossing",
+      "Tunnel ahead",
+      "Distant village lights",
+    ],
+    scenes: [
+      scene(
+        "himalayan-dawn",
+        "a",
+        "foothill valley",
+        "dawn",
+        ["clear", "overcast", "fog", "snow"],
+        ["#76849a", "#34485a", "#edbf91"],
+      ),
+      scene(
+        "himalayan-dawn",
+        "b",
+        "river valley",
+        "morning",
+        ["clear", "overcast", "fog"],
+        ["#60758d", "#293f4c", "#dbc2ac"],
+      ),
+    ],
+  },
+  {
+    id: "rajasthan-twilight",
+    name: "Rajasthan Twilight",
+    shortName: "Rajasthan",
+    regionLabel: "Northwestern India inspired",
+    description:
+      "Long semi-arid horizons, scrub, field walls, village silhouettes and fading amber light.",
+    seedPrefix: "RAJ",
+    nativeTime: "dusk",
+    defaultWeather: "clear",
+    weather: ["clear", "overcast", "fog", "storm"],
+    ambience: "desert",
+    rareEvents: [
+      "Signal passing",
+      "Distant station",
+      "Village lights appearing",
+      "Rare dry lightning",
+    ],
+    scenes: [
+      scene(
+        "rajasthan-twilight",
+        "a",
+        "semi-arid plain",
+        "golden-hour",
+        ["clear", "overcast", "fog", "storm"],
+        ["#9b6949", "#d4946a", "#695a62"],
+      ),
+      scene(
+        "rajasthan-twilight",
+        "b",
+        "twilight scrub",
+        "dusk",
+        ["clear", "overcast", "fog"],
+        ["#73523d", "#bd7760", "#514b5e"],
+      ),
+    ],
+  },
+  {
+    id: "bengal-countryside",
+    name: "Bengal Countryside",
+    shortName: "Bengal",
+    regionLabel: "Lower Gangetic plains inspired",
+    description:
+      "Rice fields, reflective ponds, palms and soft village edges beneath humid clouds.",
+    seedPrefix: "BENGAL",
+    nativeTime: "afternoon",
+    defaultWeather: "overcast",
+    weather: ["clear", "overcast", "light-rain", "monsoon", "fog", "storm"],
+    ambience: "wetland",
+    rareEvents: [
+      "Bird flock",
+      "Rainbow after rain",
+      "Small station",
+      "Village lights appearing",
+    ],
+    scenes: [
+      scene(
+        "bengal-countryside",
+        "a",
+        "rice fields and ponds",
+        "afternoon",
+        ["clear", "overcast", "light-rain", "monsoon", "fog", "storm"],
+        ["#63833d", "#aebec2", "#3f5e4b"],
+      ),
+      scene(
+        "bengal-countryside",
+        "b",
+        "humid wetland",
+        "dusk",
+        ["overcast", "light-rain", "monsoon", "fog"],
+        ["#526f3a", "#899b9f", "#354a3d"],
+      ),
+    ],
+  },
+  {
+    id: "southern-coast",
+    name: "Southern Coast",
+    shortName: "Coast",
+    regionLabel: "Southwestern coast inspired",
+    description:
+      "Backwaters, coconut palms, coastal fields, low bridges and warm sea light.",
+    seedPrefix: "COAST",
+    nativeTime: "golden-hour",
+    defaultWeather: "clear",
+    weather: ["clear", "overcast", "light-rain", "monsoon", "storm"],
+    ambience: "coast",
+    rareEvents: [
+      "Backwater bridge",
+      "Passing train",
+      "Rain curtain",
+      "Sunlit sea glimpse",
+    ],
+    scenes: [
+      scene(
+        "southern-coast",
+        "a",
+        "backwater coast",
+        "golden-hour",
+        ["clear", "overcast", "light-rain", "monsoon", "storm"],
+        ["#70804e", "#d6b879", "#8aa2a0"],
+      ),
+      scene(
+        "southern-coast",
+        "b",
+        "coastal fields",
+        "dusk",
+        ["clear", "overcast", "light-rain"],
+        ["#596c43", "#b99464", "#6f8585"],
+      ),
+    ],
+  },
+];
+
+export const ROUTE_IDS = ROUTES.map((route) => route.id);
+export const getRoute = (id: RouteId) =>
+  ROUTES.find((route) => route.id === id) ?? ROUTES[0]!;
