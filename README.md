@@ -1,122 +1,105 @@
+<div align="center">
+
+<sub>WINDOWSEAT / SECOND JOURNEY</sub>
+
 # WindowSeat V2
 
-![WindowSeat V2 route preview](public/media/social/windowseat-social.webp)
+### The journey begins outside your window.
 
-**The journey begins outside your window.**
+An immersive train-window experience built around real scenery, changing atmosphere, gentle motion, and sound that lets the rest of the world fall quiet for a while.
 
-WindowSeat V2 is a full-screen, cinematic train-window simulator built around original photorealistic scene plates, depth-separated motion, a tactile coach interior, gradual weather and light treatment, and user-initiated spatial ambience. The simulator is the homepage: there is no marketing page between the visitor and the window.
+[![Live on Vercel](https://img.shields.io/badge/LIVE_ON_VERCEL-000000?style=flat-square&logo=vercel&logoColor=white)](https://windowseat-v2.vercel.app)
+![Vanilla JavaScript](https://img.shields.io/badge/Vanilla_JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=111111)
+![Canvas 2D](https://img.shields.io/badge/Canvas_2D-Layered_Rendering-1F2937?style=flat-square)
+![Web Audio](https://img.shields.io/badge/Web_Audio-Responsive_Sound-7C3AED?style=flat-square)
+[![MIT License](https://img.shields.io/badge/License-MIT-EAB308?style=flat-square)](LICENSE)
 
-Production URL: [https://windowseat-v2.vercel.app](https://windowseat-v2.vercel.app)
+<br />
 
-> Earlier prototype: [view the original Canvas experiment](https://github.com/SatyajitBeura2468/windowseat_v2/tree/legacy-canvas-prototype). It is kept here as the first step in WindowSeat's evolution.
+[![Open the WindowSeat V2 live experience](https://img.shields.io/badge/TAKE_THE_WINDOW_SEAT-OPEN_THE_LIVE_JOURNEY-2563EB?style=for-the-badge&logo=vercel&logoColor=white)](https://windowseat-v2.vercel.app)
 
-## Experience
+</div>
 
-- Six curated, region-inspired journeys with reproducible human-readable seeds
-- Four materially different coach environments: Classic Sleeper, AC First, Modern Express, and Open Luggage View
-- Layered photographic parallax with slow scene crossfades and image fallback recovery
-- Clear, overcast, rain, monsoon, fog, storm, and route-safe snow conditions
-- Dawn through night treatments, with visitor lock and natural progression
-- Speed-aware rain glass, restrained reflections, rare route events, and coach-specific movement character
-- User-initiated Web Audio layers for train rhythm, cabin hum, wind, and weather
-- URL-restorable journeys, native sharing with clipboard fallback, and same-origin image capture
-- Cinematic, Balanced, and Data Saver quality modes
-- Keyboard, touch, reduced-motion, hidden-tab pause, and static-scene support
+<br />
 
-The regional route names describe artistic inspiration. Generated scene plates are not documentary claims of geographic accuracy.
+[![WindowSeat V2 showing a monsoon journey through the train window](https://raw.githubusercontent.com/SatyajitBeura2468/windowseat_v2/857ac7d041fbe1334c7b718b933f5fde007db615/docs/windowseat-v2-preview.jpg)](https://windowseat-v2.vercel.app)
 
-## Routes
+<p align="center"><sub>Captured from the live Konkan monsoon journey. Click the image to step aboard.</sub></p>
 
-1. Konkan Monsoon
-2. Odisha Green Corridor
-3. Himalayan Dawn
-4. Rajasthan Twilight
-5. Bengal Countryside
-6. Southern Coast
+---
 
-## Controls
+## In short
 
-The compact sill controls appear after pointer movement, touch, or keyboard focus and recede during the journey. Detailed controls live in the settings drawer.
+> **WindowSeat V2 is a quiet journey you can enter whenever you need one.** Pick a route, take the window seat, and watch realistic landscapes move past with rain, changing light, coach ambience, and sound.
 
-| Key       | Action                                     |
-| --------- | ------------------------------------------ |
-| `F`       | Toggle focus mode                          |
-| `M`       | Toggle sound                               |
-| `R`       | Start a random journey                     |
-| `C`       | Capture the current window                 |
-| `S`       | Open native share or copy the journey link |
-| `←` / `→` | Adjust train speed                         |
-| `Escape`  | Exit focus mode or close an overlay        |
+There is no destination to reach and nothing to win. The view is the experience.
 
-## Architecture
+## A more sensory WindowSeat
 
-WindowSeat V2 uses Vite, strict TypeScript, semantic DOM/CSS for the cabin and controls, Canvas 2D for weather glass, HTML image layers for route media, and Web Audio for locally synthesised ambience. It has no backend and makes no generative API calls at runtime.
+V2 takes the simple feeling behind the original WindowSeat and brings it closer to the journeys we remember: mist sitting over green hills, rain gathering on the glass, distant terrain moving slowly, and the nearest details rushing past the frame.
+
+The interface stays restrained so the scenery remains in charge.
+
+| Experience | What it adds |
+|:--|:--|
+| **Realistic scenery** | Rich landscape imagery presented through a cinematic railway window |
+| **Curated journeys** | Distinct routes and moods for different kinds of escape |
+| **Living atmosphere** | Weather, time, speed, and motion shape the character of every view |
+| **Coach perspective** | A grounded interior frame makes the scene feel observed from a real seat |
+| **Responsive sound** | Rail ambience, weather, environmental sound, and music deepen the mood |
+| **Focus view** | The interface steps away when you want nothing but the landscape |
+| **Capture and share** | Preserve a passing frame or send the journey to someone else |
+
+## Take the window seat
+
+1. Open **[WindowSeat V2](https://windowseat-v2.vercel.app)**.
+2. Use headphones if you can. Sound begins only after you choose.
+3. Take the window seat immediately, or choose a journey first.
+4. Adjust the route, coach, weather, time, speed, sound, and focus from the control rail.
+5. Leave the controls alone when the mood feels right.
+
+## Designed to feel alive
+
+- **Depth before decoration:** distant hills, middle scenery, foreground motion, glass, and coach framing work together as one view.
+- **Weather with presence:** rain, mist, cloud, and light affect the entire mood instead of behaving like a simple overlay.
+- **Motion with restraint:** speed is communicated through the landscape while the window remains calm enough to watch.
+- **Sound with purpose:** ambience supports the scene and begins only after a deliberate interaction.
+- **A quiet interface:** controls are available when needed and visually secondary when they are not.
+
+## Under the frame
+
+The repository keeps the experience lightweight and modular:
 
 ```text
-src/
-├── app/        state, persistence, URL restoration, application shell
-├── audio/      user-initiated layered Web Audio engine
-├── data/       typed routes, coaches, weather and scene manifests
-├── effects/    adaptive quality and Canvas rain glass
-├── journey/    deterministic seeds and route scheduling
-├── media/      lazy scene loading, depth composition and fallback
-├── styles/     cabin, controls, onboarding and responsive systems
-├── types/      shared contracts
-└── ui/         icons, capture and sharing
+Input and journey state
+        ↓
+World, weather, time, motion, audio, and event systems
+        ↓
+Sky → background → midground → foreground → weather → interior → glass
+        ↓
+One continuous train-window experience
 ```
 
-Only the active scene is loaded eagerly. The next likely scene is prefetched, obsolete load callbacks are ignored, device pixel ratio is bounded, route video is not required, and Data Saver uses smaller WebP posters with a single static layer. Media and audio pause when the page is hidden.
+| Foundation | Role |
+|:--|:--|
+| **Vanilla JavaScript** | Application state, interactions, and engine systems |
+| **Canvas 2D** | Layered scenery, motion, atmosphere, and coach rendering |
+| **Web Audio API** | Procedural rail rhythm and responsive environmental sound |
+| **Seeded generation** | Repeatable journeys and deterministic scene variation |
+| **Vite** | Fast development and production packaging |
 
-## Local development
+No frontend framework is required.
 
-Requires Node.js 20 or newer.
+## License
 
-```bash
-npm install
-npm run dev
-```
+WindowSeat V2 is open source under the [MIT License](LICENSE).
 
-Open the local address printed by Vite.
+---
 
-## Quality checks
+<div align="center">
 
-```bash
-npm run format:check
-npm run lint
-npm run typecheck
-npm test
-npm run build
-```
+**Designed and built by [Satyajit Beura](https://github.com/SatyajitBeura2468).**
 
-The test suite covers deterministic seeds, transition scheduling, URL parsing and recovery, persistence, quality selection, media fallback, hidden-tab motion pause, keyboard controls, sharing, capture dimensions, and licence-manifest validation.
+<sub>For everyone who has ever missed a place while watching it disappear through a train window.</sub>
 
-## Vercel deployment
-
-Vercel can detect the Vite configuration automatically:
-
-- Install command: `npm install`
-- Build command: `npm run build`
-- Output directory: `dist`
-
-No runtime environment variables or backend services are required.
-
-## Media and licences
-
-Production media is served locally and is safe for same-origin capture. The complete human-readable record is in [ASSET_LICENSES.md](ASSET_LICENSES.md); the machine-readable record is in [public/media/asset-manifest.json](public/media/asset-manifest.json).
-
-No Google Images downloads, YouTube footage, social-media videos, stock watermarks, official railway logos, copyrighted music, or announcements are bundled.
-
-## Accessibility
-
-The interface uses semantic buttons and form labels, visible focus states, keyboard operation, touch-sized controls, route-condition text for assistive technology, optional audio, bounded low-frequency lightning, reduced-motion support, and no disabled browser zoom. Mobile portrait and landscape layouts are designed independently from the desktop sill.
-
-## Technical limitations
-
-- Current route media consists of original generated still scene plates and derivatives; licensed lateral train footage would add further temporal realism in a future media pass.
-- Night treatment is reserved and intentionally avoids pretending that bright daylight imagery is true low-light footage. A future update should add dedicated low-light plates before expanding night routes.
-- Audio is procedural rather than field-recorded. Carefully licensed Indian rolling-stock recordings would improve mechanical authenticity.
-- Capture exports widescreen JPEG in the default interface; the capture engine also supports a square composition for a future UI option.
-
-## Licence
-
-Source code is released under the repository's [MIT licence](LICENSE). Generated media is documented separately in [ASSET_LICENSES.md](ASSET_LICENSES.md).
+</div>
