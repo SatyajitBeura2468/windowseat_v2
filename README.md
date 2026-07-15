@@ -8,6 +8,8 @@ WindowSeat V2 is a full-screen, cinematic train-window simulator built around or
 
 Production URL: [https://windowseat-v2.vercel.app](https://windowseat-v2.vercel.app)
 
+> Earlier prototype: [view the original Canvas experiment](https://github.com/SatyajitBeura2468/windowseat_v2/tree/legacy-canvas-prototype). It is kept here as the first step in WindowSeat's evolution.
+
 ## Experience
 
 - Six curated, region-inspired journeys with reproducible human-readable seeds
@@ -74,7 +76,7 @@ npm install
 npm run dev
 ```
 
-Open <http://127.0.0.1:3000>.
+Open the local address printed by Vite.
 
 ## Quality checks
 
